@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
+import { Route, Link } from 'react-router-dom';
 
 import styles from './app.module.scss';
-
-import { Header } from '@bg-hoard/store/ui-shared';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -10,15 +9,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
+import { Header } from '@bg-hoard/store/ui-shared';
 import { formatRating } from '@bg-hoard/store/util-formatters';
-
-import { Route, Link } from 'react-router-dom';
-
 import { StoreFeatureGameDetail } from '@bg-hoard/store/feature-game-detail';
+import { Game } from '@bg-hoard/util-interface';
 
 export const App = () => {
   const [state, setState] = useState<{
-    data: any[];
+    data: Game[];
     loadingState: 'success' | 'error' | 'loading';
   }>({
     data: [],
