@@ -23,6 +23,20 @@ function replaceScopes(content: string, scopes: string[]): string {
   );
 }
 
+function addScopeIfMissing(host: Tree) {
+  updateJson(host, 'nx.json', (json) => {
+    Object.keys(json.projects).forEach((projectName) => {
+      if (
+        !json.projects[projectName].tags.some((tag) => tag.startsWith('scope:'))
+      ) {
+        const scope = projectName.split('-')[0];
+        json.projects[projectName].tags.push(`scope:${scope}`);
+      }
+    });
+    return json;
+  });
+}
+
 export default async function (host: Tree) {
   const scopes = getScopes(readJson(host, 'nx.json'));
   updateJson(host, 'tools/generators/util-lib/schema.json', (schemaJson) => {
